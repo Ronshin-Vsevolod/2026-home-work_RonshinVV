@@ -32,14 +32,14 @@ public class ConsistentHashKVCluster implements KVCluster {
         }
         for (int port : ports) {
             try {
-                Dao<byte[]> dao = new FileDao("./data/consistent_node_" + port); // NOSONAR
-                HashStrategy strategy = new ConsistentHashStrategy(endpoints, 150); // NOSONAR
-                KVService service = new ShardedKVService(dao, port, strategy); // NOSONAR
+                Dao<byte[]> dao = new FileDao("./data/consistent_node_" + port);  // codacy:ignore=avoid_instantiating_objects_in_loops
+                HashStrategy strategy = new ConsistentHashStrategy(endpoints, 150);  // codacy:ignore=avoid_instantiating_objects_in_loops
+                KVService service = new ShardedKVService(dao, port, strategy);  // codacy:ignore=avoid_instantiating_objects_in_loops
                 service.start();
                 nodes.add(service);
                 endpointToNode.put("http://localhost:" + port, service);
             } catch (IOException e) {
-                throw new IllegalStateException("Failed to start node on port " + port, e); // NOSONAR
+                throw new IllegalStateException("Failed to start node on port " + port, e);  // codacy:ignore=avoid_instantiating_objects_in_loops
             }
         }
         started = true;
